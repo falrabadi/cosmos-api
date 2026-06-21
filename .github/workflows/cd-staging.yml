@@ -1,8 +1,7 @@
 name: CD - Staging
 
 on:
-  push:
-    branches: [staging]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -10,6 +9,8 @@ jobs:
     environment: staging
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: master
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4

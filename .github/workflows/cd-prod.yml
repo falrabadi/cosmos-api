@@ -1,8 +1,7 @@
 name: CD - Production
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -10,6 +9,8 @@ jobs:
     environment: production
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: master
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
