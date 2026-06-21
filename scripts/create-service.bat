@@ -101,7 +101,7 @@ echo     ports:                                                  >> %SERVICE_DIR
 echo       - '%PORT%:8080'                                       >> %SERVICE_DIR%\docker-compose.yml
 echo     environment:                                            >> %SERVICE_DIR%\docker-compose.yml
 echo       - ASPNETCORE_ENVIRONMENT=Development                  >> %SERVICE_DIR%\docker-compose.yml
-echo       - ConnectionStrings__Postgres=Host=postgres;Database=cosmos;Username=cosmos;Password=cosmos >> %SERVICE_DIR%\docker-compose.yml
+echo       - ConnectionStrings__Postgres=Host=postgres;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD} >> %SERVICE_DIR%\docker-compose.yml
 echo       - ConnectionStrings__Redis=redis:6379                 >> %SERVICE_DIR%\docker-compose.yml
 echo     depends_on:                                             >> %SERVICE_DIR%\docker-compose.yml
 echo       postgres:                                             >> %SERVICE_DIR%\docker-compose.yml

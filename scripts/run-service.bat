@@ -17,10 +17,17 @@ set FULL_NAME=Cosmos.%SERVICE_NAME%
 set SERVICE_DIR=services\%FULL_NAME%
 set COMPOSE_FILE=%SERVICE_DIR%\docker-compose.yml
 set INFRA_FILE=infra\docker-compose.yml
+set ENV_FILE=infra\.env
 
 if not exist "%COMPOSE_FILE%" (
     echo Error: No docker-compose.yml found at %COMPOSE_FILE%
     echo Make sure the service exists and was created with create-service.bat
+    exit /b 1
+)
+
+if not exist "%ENV_FILE%" (
+    echo Error: infra\.env not found.
+    echo Copy infra\.env.example to infra\.env and fill in your values.
     exit /b 1
 )
 
@@ -32,9 +39,9 @@ echo Starting infrastructure + %FULL_NAME%...
 echo.
 
 if /i "%REBUILD%"=="y" (
-    docker compose -f %INFRA_FILE% -f %COMPOSE_FILE% up --build
+    docker compose -f %INFRA_FILE% -f %COMPOSE_FILE% --env-file %ENV_FILE% up --build
 ) else (
-    docker compose -f %INFRA_FILE% -f %COMPOSE_FILE% up
+    docker compose -f %INFRA_FILE% -f %COMPOSE_FILE% --env-file %ENV_FILE% up
 )
 
 endlocal
